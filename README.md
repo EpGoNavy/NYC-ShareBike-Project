@@ -27,7 +27,7 @@ summary(nycbikedata) data derived from the original file.
 # EDA (exploratory data analysis)
 The tool I used for my data exploration was done in R.
 
-https://raw.githubusercontent.com/EpGoNavy/NYC-ShareBike-Project/master/Images/MeanDistanceByAge.png
+![MeanDistanceRiden](https://raw.githubusercontent.com/EpGoNavy/NYC-ShareBike-Project/master/Images/MeanDistanceByAge.png)
 
 # Analysis
 
