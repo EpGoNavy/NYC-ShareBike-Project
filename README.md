@@ -26,7 +26,8 @@ summary(nycbikedata) data derived from the original file.
 
 # EDA (exploratory data analysis)
 The tool I used for my data exploration was done in R.
-![C:\Users\ep927\Documents\NewYorkCity]()
+
+![https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/Count%20of%20Riders%20by%20Age.png]()
 
 
 
