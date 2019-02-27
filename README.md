@@ -48,63 +48,63 @@ stratified, to help balance the factor(gender).  In this case I used 100K.
 These are the fields I'm selecting for the ML.  
 df <- select(nycbikedata, Age, Gender, Year, Month,DayOfWeek,distance,RideInMin,
 Start_Station_ID, End_Station_ID)
-small.sample <- stratified(df, "Gender", size=10000)
+small.sample <- stratified(df, "Gender", size=10000)  
 small.sample$Gender <- as.factor(small.sample$Gender)
 
-# ML models RandomForset - Prior to Tuning the model
+# ML models RandomForset - PRIOR TO TUNING THE MODEL
 The model I chose for this analysis is RandomForset.  
 
 * Step 1
-Data Partition
-ind = Independent Variable. The data will be split 70/30
-rf = Random Forest
+  Data Partition
+  ind = Independent Variable. The data will be split 70/30
+  rf = Random Forest
 
-set.seed(123)
-ind <- sample(2, nrow(small.sample), replace=TRUE, prob = c(0.7, 0.3))
-train <- small.sample[ind==1,]
-test <- small.sample[ind==2,]
+  set.seed(123)
+  ind <- sample(2, nrow(small.sample), replace=TRUE, prob = c(0.7, 0.3))
+  train <- small.sample[ind==1,]
+  test <- small.sample[ind==2,]
 
 * Step 2
-Random Forset - Prior to Tuning the model
+  Random Forset - Prior to Tuning the model
 
-set.seed(111)
-rf <-randomForest(Gender~., data = train)
-print(rf)
-attributes(rf)
+  set.seed(111)
+  rf <-randomForest(Gender~., data = train)
+  print(rf)
+  attributes(rf)
 
 
 
 * Step 3.
-Prediction and Confusion Matrix - Train Data
-Pred1 = Predication 1
+  Prediction and Confusion Matrix - Train Data
+  Pred1 = Predication 1
 
-pred1 <- predict(rf, train)
-confusionMatrix(pred1,train$Gender)
+  pred1 <- predict(rf, train)
+  confusionMatrix(pred1,train$Gender)
 
 * Step 4.
-Prediction and Confusion with Matrix - Test Data
-Pred2 = Prediction 2
+  Prediction and Confusion with Matrix - Test Data
+  Pred2 = Prediction 2
 
-pred2 <- predict(rf, test)
-confusionMatrix(pred2, test$Gender)
+  pred2 <- predict(rf, test)  
+  confusionMatrix(pred2, test$Gender)
 
 * Step 5.
-Printing the Error Rate
-plot(rf)
+  Printing the Error Rate
+  plot(rf) 
 
 # ML RandomForset - MODELING AFTER TUNING
 * Step 1.
-Tune my try
+  Tune my try
 
-train <- as.data.frame(train)
-t <- tuneRF(train[,-2], train[,2],
+  train <- as.data.frame(train)
+  t <- tuneRF(train[,-2], train[,2],
        stepFactor = 0.5,
        plot=TRUE,
        improve = 0.05)
 
 * Step 2. Tune the model using MyTry from the above step
-Tune my model using the information from mtry I used that information to
-tune my model.
+  Tune my model using the information from mtry I used that information to
+  tune my model.
 
        rf <-randomForest(Gender~., data = train,
                          ntree = 400,
@@ -121,13 +121,13 @@ tune my model.
             col = "green")
 
 * Step 3. After modeled tuned - Train Data
-pred1 <- predict(rf, train)
-confusionMatrix(pred1,train$Gender)
+  pred1 <- predict(rf, train)
+  confusionMatrix(pred1,train$Gender)
 
 * Step 4. After Modeled tuned - Test Set
 
-pred2 <- predict(rf, test)
-confusionMatrix(pred2, test$Gender)
+  pred2 <- predict(rf, test)
+  confusionMatrix(pred2, test$Gender)
 
 
 
