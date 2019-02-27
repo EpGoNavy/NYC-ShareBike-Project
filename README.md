@@ -27,7 +27,7 @@ nycbikedata[,10:11],r=6378137) / 1609.344
 nycbikedata$RideInMin <- round(nycbikedata$Trip_Duration / 60 ,digits = 0)
 
 str(nycbikedata)
-summary(nycbikedata) data derived from the original file.
+summary (nycbikedata)  data derived from the original file.
 
 
 # EDA (exploratory data analysis)
@@ -90,7 +90,7 @@ The model I chose for this analysis is RandomForset.
 
 * Step 5.
   Printing the Error Rate
-  plot(rf) 
+  plot(rf)
 
 # ML RandomForset - MODELING AFTER TUNING
 * Step 1.
