@@ -57,7 +57,9 @@ stratified, to help balance the factor(gender).  In this case I used 100K.
 These are the fields I'm selecting for the ML.  
 df <- select (nycbikedata, Age, Gender, Year, Month,DayOfWeek,distance,RideInMin,
 Start_Station_ID, End_Station_ID)
-small.sample <- stratified(df, "Gender", size=10000)  
+
+small.sample <- stratified(df, "Gender", size=10000)
+
 small.sample$Gender <- as.factor(small.sample$Gender)
 
 # ML models RandomForset - PRIOR TO TUNING THE MODEL
