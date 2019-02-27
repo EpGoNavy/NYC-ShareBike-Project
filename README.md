@@ -8,32 +8,23 @@ be found here https://s3.amazonaws.com/tripdata/index.html. More information
 
 # Prepping and cleaning the datasets
 I used R for most of my data cleaning to create a file that would be used to
-prep my file for ML.
+prep my file for ML. After combine all three years there were approximately
+~800k lines
 
 Here is the code I used to create new columns and populate:
-
 nycbikedata <-read.csv("C://Users/ep927/Documents/NewYorkCity/CleanedBikeData.
 csv", header = TRUE)
-
-
 nycbikedata$Start_Year <- strptime(nycbikedata$Start_Time, "%m/%d/%Y %H:%M")
-
 nycbikedata$Year <- year(nycbikedata$Start_Year)
 nycbikedata$Month <- month(nycbikedata$Start_Year)
 nycbikedata$DayOfWeek <- wday(nycbikedata$Start_Year, label = TRUE, abbr = TRUE)
-
 nycbikedata$Qtr <- quarter(nycbikedata$Start_Year)
-
 nycbikedata$DayOfWeek <- ifelse(wday(nycbikedata$Start_Year)==1,7,
 wday(nycbikedata$Start_Year)-1)
-
 nycbikedata$Age <- (nycbikedata$Year - nycbikedata$Birth_Year)
-
 nycbikedata$distance <-distHaversine(nycbikedata[,6:7],
 nycbikedata[,10:11],r=6378137) / 1609.344
-
 nycbikedata$RideInMin <- round(nycbikedata$Trip_Duration / 60 ,digits = 0)
-
 
 str(nycbikedata)
 summary(nycbikedata) data derived from the original file.
@@ -50,8 +41,95 @@ used for my data exploration.
 ![MeanDistanceRiden](https://raw.githubusercontent.com/EpGoNavy/NYC-ShareBike-Project/master/Images/MeanDistanceByAge.png)
 
 # Analysis
+Selecting the fields to be used in predicting Gender using RandomForset.  Since
+Gender is a int, and I need to convert it to a Factor.  To do that Here is the
+code I used. Because the dataset was unbalanced I needed to use a command called
+stratified, to help balance the factor(gender).  In this case I used 100K.
+These are the fields I'm selecting for the ML.  
+df <- select(nycbikedata, Age, Gender, Year, Month,DayOfWeek,distance,RideInMin,
+Start_Station_ID, End_Station_ID)
+small.sample <- stratified(df, "Gender", size=10000)
+small.sample$Gender <- as.factor(small.sample$Gender)
 
-* ML models
+# ML models RandomForset - Prior to Tuning the model
+The model I chose for this analysis is RandomForset.  
+
+* Step 1
+Data Partition
+ind = Independent Variable. The data will be split 70/30
+rf = Random Forest
+
+set.seed(123)
+ind <- sample(2, nrow(small.sample), replace=TRUE, prob = c(0.7, 0.3))
+train <- small.sample[ind==1,]
+test <- small.sample[ind==2,]
+
+* Step 2
+Random Forset - Prior to Tuning the model
+
+set.seed(111)
+rf <-randomForest(Gender~., data = train)
+print(rf)
+attributes(rf)
+
+
+
+* Step 3.
+Prediction and Confusion Matrix - Train Data
+Pred1 = Predication 1
+
+pred1 <- predict(rf, train)
+confusionMatrix(pred1,train$Gender)
+
+* Step 4.
+Prediction and Confusion with Matrix - Test Data
+Pred2 = Prediction 2
+
+pred2 <- predict(rf, test)
+confusionMatrix(pred2, test$Gender)
+
+* Step 5.
+Printing the Error Rate
+plot(rf)
+
+# ML RandomForset - MODELING AFTER TUNING
+* Step 1.
+Tune my try
+
+train <- as.data.frame(train)
+t <- tuneRF(train[,-2], train[,2],
+       stepFactor = 0.5,
+       plot=TRUE,
+       improve = 0.05)
+
+* Step 2. Tune the model using MyTry from the above step
+Tune my model using the information from mtry I used that information to
+tune my model.
+
+       rf <-randomForest(Gender~., data = train,
+                         ntree = 400,
+                         mtry = 4,
+                         importance = TRUE,
+                          proximity = TRUE)
+
+
+       plot(rf)
+       print(rf)
+       rf$confusion
+       hist(treesize(rf),
+            main = "Number Of Trees",
+            col = "green")
+
+* Step 3. After modeled tuned - Train Data
+pred1 <- predict(rf, train)
+confusionMatrix(pred1,train$Gender)
+
+* Step 4. After Modeled tuned - Test Set
+
+pred2 <- predict(rf, test)
+confusionMatrix(pred2, test$Gender)
+
+
 
 # Conclusions
 
