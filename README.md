@@ -21,6 +21,7 @@ nycbikedata$Start_Year <- strptime(nycbikedata$Start_Time, "%m/%d/%Y %H:%M")
 nycbikedata$Year <- year(nycbikedata$Start_Year)
 nycbikedata$Month <- month(nycbikedata$Start_Year)
 nycbikedata$DayOfWeek <- wday(nycbikedata$Start_Year, label = TRUE, abbr = TRUE)
+
 nycbikedata$Qtr <- quarter(nycbikedata$Start_Year)
 
 nycbikedata$DayOfWeek <- ifelse(wday(nycbikedata$Start_Year)==1,7,
