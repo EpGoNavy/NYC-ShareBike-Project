@@ -62,6 +62,8 @@ small.sample <- stratified(df, "Gender", size=10000)
 
 small.sample$Gender <- as.factor(small.sample$Gender)
 
+i[GenderBalancing](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/GenderBalancing.PNG)
+
 # ML models RandomForset - PRIOR TO TUNING THE MODEL
 The model I chose for this analysis is RandomForset.  
 
@@ -83,6 +85,8 @@ The model I chose for this analysis is RandomForset.
   print(rf)
   attributes(rf)
 
+  i[Model_Prior_To_Tuning](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/TrainDataSetPriorToTuning.PNG)
+
 
 
 * Step 3.
@@ -92,6 +96,8 @@ The model I chose for this analysis is RandomForset.
   pred1 <- predict(rf, train)
   confusionMatrix(pred1,train$Gender)
 
+  i[CM_Pre_Train_Data](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/ConfusionMatrixTrainDataPriorToTuning.PNG)
+
 * Step 4.
   Prediction and Confusion with Matrix - Test Data
   Pred2 = Prediction 2
@@ -99,9 +105,13 @@ The model I chose for this analysis is RandomForset.
   pred2 <- predict(rf, test)  
   confusionMatrix(pred2, test$Gender)
 
+  i[CM_Pre_Test_Data](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/ConfusionMatrixTestDataPriorToTuning.PNG)
+
 * Step 5.
-  Printing the Error Rate
+  Printing the Error Rate to determine the number of trees to use.  
   plot(rf)
+
+  i[Error_RF](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/ErrorRate-RF.PNG)
 
 # ML RandomForset - MODELING AFTER TUNING
 * Step 1.
