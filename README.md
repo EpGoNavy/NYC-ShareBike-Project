@@ -14,16 +14,25 @@ prep my file for ML. After combine all three years there were approximately
 Here is the code I used to create new columns and populate:
 nycbikedata <-read.csv("C://Users/ep927/Documents/NewYorkCity/CleanedBikeData.
 csv", header = TRUE)
+
 nycbikedata$Start_Year <- strptime(nycbikedata$Start_Time, "%m/%d/%Y %H:%M")
+
 nycbikedata$Year <- year(nycbikedata$Start_Year)
+
 nycbikedata$Month <- month(nycbikedata$Start_Year)
+
 nycbikedata$DayOfWeek <- wday(nycbikedata$Start_Year, label = TRUE, abbr = TRUE)
+
 nycbikedata$Qtr <- quarter(nycbikedata$Start_Year)
+
 nycbikedata$DayOfWeek <- ifelse(wday(nycbikedata$Start_Year)==1,7,
 wday(nycbikedata$Start_Year)-1)
+
 nycbikedata$Age <- (nycbikedata$Year - nycbikedata$Birth_Year)
+
 nycbikedata$distance <-distHaversine(nycbikedata[,6:7],
 nycbikedata[,10:11],r=6378137) / 1609.344
+
 nycbikedata$RideInMin <- round(nycbikedata$Trip_Duration / 60 ,digits = 0)
 
 str(nycbikedata)
@@ -46,7 +55,7 @@ Gender is a int, and I need to convert it to a Factor.  To do that Here is the
 code I used. Because the dataset was unbalanced I needed to use a command called
 stratified, to help balance the factor(gender).  In this case I used 100K.
 These are the fields I'm selecting for the ML.  
-df <- select(nycbikedata, Age, Gender, Year, Month,DayOfWeek,distance,RideInMin,
+df <- select (nycbikedata, Age, Gender, Year, Month,DayOfWeek,distance,RideInMin,
 Start_Station_ID, End_Station_ID)
 small.sample <- stratified(df, "Gender", size=10000)  
 small.sample$Gender <- as.factor(small.sample$Gender)
