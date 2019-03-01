@@ -138,6 +138,10 @@ The model I chose for this analysis is RandomForset.
             main = "Number Of Trees",
             col = "green")
 
+![PostModelTuneCM](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/PostModelTune.PNG)
+
+![NumberOfTrees](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/NumberOfTrees.PNG)
+
 
 
 * Step 3. After modeled tuned - Train Data
@@ -149,8 +153,23 @@ The model I chose for this analysis is RandomForset.
   pred2 <- predict(rf, test)
   confusionMatrix(pred2, test$Gender)
 
+ In the chart below the top CM is for the Train Data and the bottom
+  CM is for the Test Data.
 
+![PostModelTuneCM](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/PostModelTune.PNG)
 
+* Step 5. Variable importance
+
+#Importance of Variables
+
+varImpPlot(rf,
+           sort = TRUE,
+           n.var = 6,
+           main = "Top Six - Variable Importance")
+
+varUsed(rf)  
+
+![Variable Used](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/Variable_Importance.PNG)
 
 # Conclusions
 
