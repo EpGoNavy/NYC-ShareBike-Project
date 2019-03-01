@@ -108,7 +108,7 @@ The model I chose for this analysis is RandomForset.
 * Step 5.
   Printing the Error Rate to determine the number of trees to use.  
   plot(rf)
-  
+  m
 ![Error_RF](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/ErrorRate-RF.PNG)
 
 # ML RandomForset - MODELING AFTER TUNING
@@ -121,6 +121,8 @@ The model I chose for this analysis is RandomForset.
        plot=TRUE,
        improve = 0.05)
 
+       ![Tune My Try](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/MyTryTune.PNG)
+
 * Step 2. Tune the model using MyTry from the above step
   Tune my model using the information from mtry I used that information to
   tune my model.
@@ -131,13 +133,12 @@ The model I chose for this analysis is RandomForset.
                          importance = TRUE,
                           proximity = TRUE)
 
-
-       plot(rf)
-       print(rf)
        rf$confusion
        hist(treesize(rf),
             main = "Number Of Trees",
             col = "green")
+
+
 
 * Step 3. After modeled tuned - Train Data
   pred1 <- predict(rf, train)
@@ -147,6 +148,7 @@ The model I chose for this analysis is RandomForset.
 
   pred2 <- predict(rf, test)
   confusionMatrix(pred2, test$Gender)
+
 
 
 
