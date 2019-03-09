@@ -1,4 +1,4 @@
-# NYC-ShareBike-Project
+# NYC-BikeShare-Project
 
 # Project overview
 Bike Sharing in the US, is rising and this project is to understand who are
@@ -95,7 +95,11 @@ small.sample$Gender <- as.factor(small.sample$Gender)
 
 ![PostModelTuneCM](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/PostModelTune.PNG)
 
-![NumberOfTrees](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/NumberOfTrees.PNG)
+To see the RandomForset Results for both the pre and the post go to the link below.
+![Pre_Post_Analysis](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Pre_Post_RandomForest_Analysis.md)
+
+The chart below shows nodes are distributed across the 400 trees, used in the mode.  
+![NumberOfNodes](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/NumberOfTrees.PNG)
 
 * Step 3. Variable importance
 
@@ -111,6 +115,13 @@ varUsed(rf)
 ![Variable Used](https://github.com/EpGoNavy/NYC-ShareBike-Project/blob/master/Images/Variable_Importance.PNG)
 
 # Conclusions
-
+With the predictor(Gender) being unbalanced, the results from the RandomForset Model was good.  The datatset needed little cleaning. While the results were ok, dealing with unbalanced datasets will be a challenge for any analysis.  
 
 # References
+* The BikeShareDataSets
+![BikeShareDataSets](https://s3.amazonaws.com/tripdata/index.html)
+
+  * Link to information about the dataset.
+![SharedBikeDataSetInfo](https://www.citibikenyc.com/system-data.)
+
+*
