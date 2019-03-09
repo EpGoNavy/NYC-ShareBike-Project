@@ -117,11 +117,11 @@ varUsed(rf)
 # Conclusions
 With the predictor(Gender) being unbalanced, the results from the RandomForset Model was good.  The datatset needed little cleaning. While the results were ok, dealing with unbalanced datasets will be a challenge for any analysis.  
 
+
+
 # References
 * The BikeShareDataSets
 ![BikeShareDataSets](https://s3.amazonaws.com/tripdata/index.html)
 
-  * Link to information about the dataset.
+* Link to information about the dataset.
 ![SharedBikeDataSetInfo](https://www.citibikenyc.com/system-data.)
-
-*
